@@ -1,0 +1,48 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props {
+  games: CollectionEntry<'games'>[];
+}
+const { games } = Astro.props;
+---
+
+<ul class="grid">
+  {
+    games.map((g) => (
+      <li>
+        <a href={`/games/${g.id}/`}>
+          <img src={`/games/${g.id}/card.png`} alt="" loading="lazy" width="1200" height="630" />
+          <span class="title">{g.data.title}</span>
+          <span class="sub">
+            {g.data.date.toISOString().slice(0, 10).replaceAll('-', '.')}
+            {!g.data.playable && '・紹介のみ'}
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  a { display: block; text-decoration: none; color: var(--text); }
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    transition: transform 0.15s;
+  }
+  a:hover img { transform: translateY(-2px); border-color: var(--muted); }
+  .title { display: block; margin-top: 8px; font-weight: 700; }
+  .sub { display: block; color: var(--muted); font-size: 0.8rem; }
+</style>

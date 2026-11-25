@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import GameGrid from '../../components/GameGrid.astro';
+
+const games = (await getCollection('games')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Base title="作品一覧" description="PlanNewm の毎週ミニゲーム一覧。すべてブラウザで遊べます。">
+  <main>
+    <h1>作品一覧</h1>
+    <GameGrid games={games} />
+  </main>
+</Base>
+
+<style>
+  h1 { font-size: 1.4rem; margin: 24px 0 20px; }
+</style>

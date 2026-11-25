@@ -1,0 +1,9 @@
+# Cloudflare Pages のヘッダー設定
+# Unity のビルドは Decompression Fallback 形式（.unityweb）なので Content-Encoding は付けない
+
+/games/*/Build/*
+  Cache-Control: public, max-age=3600
+  X-Content-Type-Options: nosniff
+
+/*.png
+  Cache-Control: public, max-age=86400
